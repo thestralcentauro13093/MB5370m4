@@ -28,12 +28,17 @@ ggplot(data = mpg) +
 
 ## 2.7 Understand the "grammar of graphics"
 
-```{r}
-# 2.7.1 Graphing template
-ggplot(data = <DATA>) + 
-  <GEOM_FUNCTION>(mapping = aes(<MAPPINGS>))
+### 2.7.1 Graphing templates
 
-# 2.7.2 Aesthetic mappings
+```{r}
+#ggplot(data = <DATA>) + 
+# <GEOM_FUNCTION>(mapping = aes(<MAPPINGS>))
+```
+
+### 2.7.2 Aesthetic mappings
+
+```{r}
+
 ggplot(data = mpg) + 
   geom_point(mapping = aes(x = displ, y = hwy, colour = class)) #change point COLOUR by class
 
@@ -71,7 +76,7 @@ ggplot(data = mpg) +
   facet_grid(drv ~ cyl) #facet_grid(), ~ to separate variables
 ggplot(data = mpg) + 
   geom_point(mapping = aes(x = displ, y = hwy)) + 
-  facet_grid(. ~ cyl) #use a . to not facet in rows or columns (ex. facet_grid(. ~ cyl))
+  facet_grid(. ~ cyl) #use a . to not facet in rows or columns (ex. *facet_grid(. ~ cyl)*)
 ```
 
 ## 2.10 Fitting simple lines
@@ -79,15 +84,15 @@ ggplot(data = mpg) +
 ```{r}
 # Displaying data as POINTS
 ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy)) #geom_point
+  geom_point(mapping = aes(x = displ, y = hwy)) #**geom_point**
 
 # Displaying data as LINES
 ggplot(data = mpg) + 
-  geom_smooth(mapping = aes(x = displ, y = hwy)) #geom_smooth
+  geom_smooth(mapping = aes(x = displ, y = hwy)) #**geom_smooth**
 ggplot(data = mpg) + 
   geom_smooth(mapping = aes(x = displ, y = hwy, linetype = drv)) #change line type per variable
  ggplot(data = mpg) +
-  geom_smooth(mapping = aes(x = displ, y = hwy, group = drv)) #
+  geom_smooth(mapping = aes(x = displ, y = hwy, group = drv))
 
 # Plotting multiple geoms
 ggplot(data = mpg) + 
@@ -101,19 +106,23 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
   geom_smooth() #display different aesthetics in different layers
 ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
   geom_point(mapping = aes(color = class)) + 
-  geom_smooth(data = filter(mpg, class == "subcompact"), se = FALSE) #select and plot only one subset in a different layer (ex. (class == "subcompact"))
+  geom_smooth(data = filter(mpg, class == "subcompact"), se = FALSE) #select and plot only one subset in a different layer (ex. *(class == "subcompact")*)
 ```
 
 ## 2.11 Transformations and Stats
 
+### 2.11.1 Plotting statistics
+
 ```{r}
-# 2.11.1 Plotting statistics
 ggplot(data = diamonds) + 
   geom_bar(mapping = aes(x = cut))
 ggplot(data = diamonds) + 
-  stat_count(mapping = aes(x = cut)) #use stat_count for same result
+  stat_count(mapping = aes(x = cut)) #use **stat_count** for same result
+```
 
-# 2.11.2 Overriding defaults in ggplot2
+### 2.11.2 Overriding defaults in ggplot2
+
+```{r}
 demo <- tribble(
   ~cut,         ~freq,
   "Fair",       1610,
@@ -127,8 +136,11 @@ ggplot(data = demo) +
   geom_bar(mapping = aes(x = cut, y = freq), stat = "identity") #plot results
 ggplot(data = diamonds) + 
   geom_bar(mapping = aes(x = cut, y = after_stat(prop), group = 1)) #override aesthetic from count to proportion of data set
+```
 
-# 2.11.3 Plotting statistical details
+### 2.11.3 Plotting statistical details
+
+```{r}
 ggplot(data = diamonds) + 
   stat_summary(
     mapping = aes(x = cut, y = depth),
@@ -151,7 +163,7 @@ ggplot(data = diamonds) +
 ggplot(data = diamonds) + 
   geom_bar(mapping = aes(x = cut, fill = cut)) #differentiate x-variable values with bar colors
 ggplot(data = diamonds) + 
-  geom_bar(mapping = aes(x = cut, fill = clarity)) #BOH
+  geom_bar(mapping = aes(x = cut, fill = clarity))
 
 ggplot(data = diamonds, mapping = aes(x = cut, fill = clarity)) + 
   geom_bar(alpha = 1/5, position = "identity") #alter transparency
@@ -160,7 +172,7 @@ ggplot(data = diamonds, mapping = aes(x = cut, colour = clarity)) +
   geom_bar(fill = NA, position = "identity") #color the bar outlines with no fill color
 
 ggplot(data = diamonds) + 
-  geom_bar(mapping = aes(x = cut, fill = clarity), position = "fill") #make stacked bars th same height maintaining original proportions
+  geom_bar(mapping = aes(x = cut, fill = clarity), position = "fill") #make stacked bars the same height maintaining original proportions
 
 ggplot(data = diamonds) + 
   geom_bar(mapping = aes(x = cut, fill = clarity), position = "dodge") #place overlapping objects beside one another
@@ -172,22 +184,23 @@ ggplot(data = mpg) +
 ## 2.13 The layered grammar of graphics
 
 ```{r}
-ggplot(data = <DATA>) + 
-  <GEOM_FUNCTION>(
-     mapping = aes(<MAPPINGS>),
-     stat = <STAT>, 
-     position = <POSITION>
-  ) +
-  <FACET_FUNCTION> #updated template to make a ggplot
+#ggplot(data = <DATA>) + 
+#  <GEOM_FUNCTION>(
+#     mapping = aes(<MAPPINGS>),
+#     stat = <STAT>, 
+#     position = <POSITION>) +
+#  <FACET_FUNCTION> #updated template to make a ggplot
 ```
 
-## ASSIGNMENT - Plot deconstruction
+----------
+
+# ASSIGNMENT - Plot deconstruction
 
 ```{r}
 
 ```
 
----
+----------
 
 # WORKSHOP 2 - Using ggplot2 for communication ####
 
@@ -198,7 +211,7 @@ ggplot(data = <DATA>) +
 ggplot(mpg, aes(displ, hwy)) +
   geom_point(aes(color = class)) +
   geom_smooth(se = FALSE) +
-  labs(title = "Fuel efficiency generally decreases with engine size") #labs(title= )
+  labs(title = "Fuel efficiency generally decreases with engine size") #*labs(title= )*
 
 #Adding subtitles and caption with labs()
 ggplot(mpg, aes(displ, hwy)) +
@@ -207,7 +220,7 @@ ggplot(mpg, aes(displ, hwy)) +
   labs(
     title = "Fuel efficiency generally decreases with engine size",
     subtitle = "Two seaters (sports cars) are an exception because of their light weight",
-    caption = "Data from fueleconomy.gov") #labs(title= ,subtitle= ,caption= )
+    caption = "Data from fueleconomy.gov") #**labs(title= ,subtitle= ,caption= )**
 
 #Replacing axis labels and legend titles
 ggplot(mpg, aes(displ, hwy)) +
@@ -216,7 +229,7 @@ ggplot(mpg, aes(displ, hwy)) +
   labs(
     x = "Engine displacement (L)",
     y = "Highway fuel economy (mpg)",
-    colour = "Car type") #labs(x= ,y=, colour= )
+    colour = "Car type") #**labs(x= ,y=, colour= )**
 ```
 
 ## 3.2 Annotations
@@ -250,14 +263,14 @@ ggplot(mpg, aes(displ, hwy)) +
 ## 3.4 Axis ticks
 
 ```{r}
-#Changing axis ticks frmo original graph
+#Changing axis ticks from original graph
 ggplot(mpg, aes(displ, hwy)) +
   geom_point() +
   scale_y_continuous(breaks = seq(15, 40, by = 5))
 
 seq(15,40, by=5) #creating a sequence of numbers
 
-#deleting axis ticks numerical values
+#Deleting axis ticks numerical values
 ggplot(mpg, aes(displ, hwy)) +
   geom_point() +
   scale_x_continuous(labels = NULL) +
@@ -277,7 +290,7 @@ base + theme(legend.position = "bottom")
 base + theme(legend.position = "right") #default legend setting
 
 #Hiding legend
-base + theme(legend.position = "none") #legend.position="none" to hide legend after creating one
+base + theme(legend.position = "none") #*legend.position="none" to hide legend after creating one
 ```
 
 ## 3.6 Replacing a scale
@@ -299,7 +312,7 @@ ggplot(mpg, aes(displ, hwy)) +
   geom_point(aes(color = drv, shape = drv)) +
   scale_colour_brewer(palette = "Set1") #custom colour scale&different point styles for each data type
 
-#using predefined colours
+# Using predefined colours
 presidential %>%
   mutate(id = 33 + row_number()) %>%
   ggplot(aes(start, id, colour = party)) +
@@ -307,7 +320,7 @@ presidential %>%
     geom_segment(aes(xend = end, yend = id)) +
     scale_colour_manual(values = c(Republican = "red", Democratic = "blue")) #scale_colour_manual()
 
-## Using a preset colour package
+# Using a preset colour package
 
 install.packages('viridis') #package "viridis"
 install.packages('hexbin')
